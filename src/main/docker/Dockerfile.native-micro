@@ -1,5 +1,5 @@
 # dependency resolution and compiling
-FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21 AS builder
+FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21@sha256:3c000f5e5dcaa876b96b94b36ce1cad5aa9429debe35d881ece037bd7b9b5082 AS builder
 WORKDIR /app
 USER quarkus
 COPY --chown=quarkus:quarkus mvnw .
@@ -13,7 +13,7 @@ ARG APP_NAME
 RUN ./mvnw package -Pnative -Dquarkus.application.name=transaction-service -Dquarkus.profile=prod -DskipTests=true
 
 # build native Quarkus
-FROM quay.io/quarkus/quarkus-micro-image:2.0
+FROM quay.io/quarkus/quarkus-micro-image:2.0@sha256:5395cd1f9dd9b1c1c30cfb2b428564611968ad3896fe843413a2b6ff4200d8d7
 WORKDIR /work/
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
